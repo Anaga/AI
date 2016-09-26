@@ -2,8 +2,8 @@
 """
 Basic staff to solve HW1 in ITI8600.
 
-This is not a complete solution, but gives you an initial 
-idea how to proceed. Currently can place 3 tiles in a valid way
+This is a complete solution, and gives you an initial idea how to proceed. 
+Currently can place all 6 tiles in a valid way
 on the pyramid containing of 6 tiles.
 
 """
