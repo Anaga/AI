@@ -141,61 +141,35 @@ class TantrixPyramid6(search.Problem):
             for j in range(i):  # go over all puted tiles and 
                 for k in range(0,6): #remove all rotation of choisen tile
                    enabledActions.remove(leftShift(state[j],k))
-        if i == 1:
-            # T1, check for T0-Y
-            for t in enabledActions:  # go over all lefted tiles and if this tile 't' now match to t0, remove it from enabledActions
+        
+        for t in enabledActions:  # go over all lefted tiles and if this tile 't' not match to t0, remove it from enabledActions   
+            if i == 1: # T1, check for T0-Y
                 # we check match T0 and T1, so check only Y axis            
                 if testY(t0, t) == False:
                     toRemove.append(t)
 
-        elif i == 2:           
-            # T2, check for T0-X, T1-Z        
-            for t in enabledActions:  # go over all lefted tiles and if this tile 't' now match to t0, remove it from enabledActions
-                # we check match T0 and T2 on X axis
-                if   testX(t0, t) == False:
-                    toRemove.append(t)
-                
+            if i == 2: # T2, check for T0-X, T1-Z 
+                # we check match T0 and T2 on X axis                
+                if  testX(t0, t) == False:
+                    toRemove.append(t)                
                 # and check match T1 and T2 on Z axis  
                 elif testZ(t1, t) == False:
                     toRemove.append(t)
 
-        elif i == 3:
-            # T3, check for T1-Y      
-            t1 = state[1] # get the 1-th tile  
-            toRemove=[]  # list of the tiles that do not have matching color     
-            for t in enabledActions:  # go over all lefted tiles and if this tile 't' now match to t1, remove it from enabledActions
-                # we check match T1 and T3, so check only Y axis            
+            if i == 3:  # T3, check for T1-Y                    
                 if testY(t1, t) == False:
-                    toRemove.append(t)
-             
+                    toRemove.append(t)             
                 
-        elif i == 4:
-            # T4, check for T1-X, T2-Y, T3-Z 
-            for t in enabledActions:  # go over all lefted tiles and if this tile 't' now match to t0, remove it from enabledActions
-                # we check match T1 and T4 on X axis
-                if   testX(t1, t) == False:
-                    toRemove.append(t)
-                
-                # and check match T2 and T4 on Y axis  
-                elif testY(t2, t) == False:
-                    toRemove.append(t)
-                
-                # and check match T3 and T4 on Z axis  
-                elif testZ(t3, t) == False:
+            if i == 4:  # T4, check for T1-X, T2-Y, T3-Z 
+                if (testX(t1, t) == False) or (testY(t2, t) == False) or (testZ(t3, t) == False):
                     toRemove.append(t)
         
-        elif i == 5:
-            # T5, check for T2-X, T4-Z          
-            for t in enabledActions:  # go over all lefted tiles and if this tile 't' now match to t0, remove it from enabledActions
-                # we check match T1 and T5 on X axis
-                if   testX(t2, t) == False:
-                    toRemove.append(t)
-                
-                # and check match T3 and T5 on Z axis  
-                elif testZ(t4, t) == False:
+            if i == 5: # T5, check for T2-X, T4-Z          
+                if (testX(t2, t) == False) or (testZ(t4, t) == False):
                     toRemove.append(t)
                     
         for t in toRemove:
+            #print t
             enabledActions.remove(t)
         #print "return enabledActions" 
         #print enabledActions
@@ -248,7 +222,6 @@ def breadth_first_search(problem):
 
 print "Ready to start breadth_first_tree_search"  
 search.breadth_first_tree_search(tp6)
-
 
 localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start depth_first_tree_search"  
