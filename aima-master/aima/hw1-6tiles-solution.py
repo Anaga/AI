@@ -149,23 +149,21 @@ class TantrixPyramid6(search.Problem):
                     toRemove.append(t)
 
             if i == 2: # T2, check for T0-X, T1-Z 
-                # we check match T0 and T2 on X axis                
-                if  testX(t0, t) == False:
-                    toRemove.append(t)                
+                #  we check match T0 and T2 on X axis                           
                 # and check match T1 and T2 on Z axis  
-                elif testZ(t1, t) == False:
+                if False == (testX(t0,t) and testZ(t1,t)):
                     toRemove.append(t)
 
             if i == 3:  # T3, check for T1-Y                    
-                if testY(t1, t) == False:
+                if False == testY(t1, t):
                     toRemove.append(t)             
                 
             if i == 4:  # T4, check for T1-X, T2-Y, T3-Z 
-                if (testX(t1, t) == False) or (testY(t2, t) == False) or (testZ(t3, t) == False):
+                if False == (testX(t1, t) and testY(t2, t) and testZ(t3, t)):
                     toRemove.append(t)
         
             if i == 5: # T5, check for T2-X, T4-Z          
-                if (testX(t2, t) == False) or (testZ(t4, t) == False):
+                if False == (testX(t2, t) and testZ(t4, t)):
                     toRemove.append(t)
                     
         for t in toRemove:
@@ -254,27 +252,3 @@ search.compare_searchers([tp6],["algorithm","Tantrix pyramid 6"],[
     ])
 print "End"
 """END"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
