@@ -6,6 +6,9 @@ This is a complete solution, and gives you an initial idea how to proceed.
 Currently can place all 6 tiles in a valid way
 on the pyramid containing of 6 tiles.
 
+it is posible to sped ou, if route print out to log
+hw1-6tiles-solution.py > log.txt
+
 """
 import time
 import search
@@ -128,12 +131,7 @@ class TantrixPyramid6(search.Problem):
         i =  state.index(None)
         #print "i = %d "%i
         enabledActions=set(self.tiles)
-        toRemove=[]  # list of the tiles that do not have matching color  
-        t0 = state[0] # get the 0-st tile
-        t1 = state[1] # get the 1-st tile
-        t2 = state[2] # get the 2-st tile
-        t3 = state[3] # get the 3-st tile    
-        t4 = state[4] # get the 4-st tile        
+        toRemove=[]  # list of the tiles that do not have matching color     
         
         if i == 0:
             return enabledActions
@@ -142,29 +140,28 @@ class TantrixPyramid6(search.Problem):
                 for k in range(0,6): #remove all rotation of choisen tile
                    enabledActions.remove(leftShift(state[j],k))
         
+        T = list()
+        for s in state:
+          T.append(s)    # get the i-st tile 
+          
         for t in enabledActions:  # go over all lefted tiles and if this tile 't' not match to t0, remove it from enabledActions   
             if i == 1: # T1, check for T0-Y
                 # we check match T0 and T1, so check only Y axis            
-                if testY(t0, t) == False:
-                    toRemove.append(t)
+                if False == testY(T[0], t): toRemove.append(t)
 
             if i == 2: # T2, check for T0-X, T1-Z 
                 #  we check match T0 and T2 on X axis                           
                 # and check match T1 and T2 on Z axis  
-                if False == (testX(t0,t) and testZ(t1,t)):
-                    toRemove.append(t)
+                if False == (testX(T[0],t) and testZ(T[1],t)): toRemove.append(t)
 
             if i == 3:  # T3, check for T1-Y                    
-                if False == testY(t1, t):
-                    toRemove.append(t)             
+                if False == testY(T[1], t):  toRemove.append(t)             
                 
             if i == 4:  # T4, check for T1-X, T2-Y, T3-Z 
-                if False == (testX(t1, t) and testY(t2, t) and testZ(t3, t)):
-                    toRemove.append(t)
+                if False == (testX(T[1], t) and testY(T[2], t) and testZ(T[3], t)): toRemove.append(t)
         
             if i == 5: # T5, check for T2-X, T4-Z          
-                if False == (testX(t2, t) and testZ(t4, t)):
-                    toRemove.append(t)
+                if False == (testX(T[2], t) and testZ(T[4], t)): toRemove.append(t)
                     
         for t in toRemove:
             #print t

@@ -1,5 +1,5 @@
 Start up
-Init compled, total we have 36 self.tiles
+Init compled, total we have 36 tiles, including all rotations
                    ___         
                   /   \       
                  /     \     
@@ -19,10 +19,10 @@ Init compled, total we have 36 self.tiles
                 \       /      
                  \     /     
                   \_ _/       
-Local current time : Mon Sep 26 19:33:13 2016
+Local current time : Mon Sep 26 23:16:20 2016
 Ready to start breadth_first_tree_search
 We finde the solution!
-Local current time : Mon Sep 26 19:33:13 2016
+Local current time : Mon Sep 26 23:16:20 2016
                    ___         
                   / y \       
                  /b   r\     
@@ -43,9 +43,9 @@ Local current time : Mon Sep 26 19:33:13 2016
                  \r   b/     
                   \_r_/       
 Ready to start depth_first_tree_search
-Local current time : Mon Sep 26 19:33:13 2016
+Local current time : Mon Sep 26 23:16:20 2016
 We finde the solution!
-Local current time : Mon Sep 26 19:33:13 2016
+Local current time : Mon Sep 26 23:16:20 2016
                    ___         
                   / y \       
                  /b   y\     
@@ -66,9 +66,9 @@ Local current time : Mon Sep 26 19:33:13 2016
                  \b   y/     
                   \_r_/       
 Ready to start depth_first_graph_search
-Local current time : Mon Sep 26 19:33:13 2016
+Local current time : Mon Sep 26 23:16:20 2016
 We finde the solution!
-Local current time : Mon Sep 26 19:33:13 2016
+Local current time : Mon Sep 26 23:16:20 2016
                    ___         
                   / y \       
                  /b   y\     
@@ -89,9 +89,9 @@ Local current time : Mon Sep 26 19:33:13 2016
                  \b   y/     
                   \_r_/       
 Ready to start breadth_first_search
-Local current time : Mon Sep 26 19:33:13 2016
+Local current time : Mon Sep 26 23:16:20 2016
 We finde the solution!
-Local current time : Mon Sep 26 19:33:24 2016
+Local current time : Mon Sep 26 23:16:31 2016
                    ___         
                   / y \       
                  /b   r\     
@@ -112,7 +112,7 @@ Local current time : Mon Sep 26 19:33:24 2016
                  \r   b/     
                   \_r_/       
 We finde the solution!
-Local current time : Mon Sep 26 19:33:25 2016
+Local current time : Mon Sep 26 23:16:31 2016
                    ___         
                   / y \       
                  /b   r\     
@@ -133,7 +133,7 @@ Local current time : Mon Sep 26 19:33:25 2016
                  \r   b/     
                   \_r_/       
 We finde the solution!
-Local current time : Mon Sep 26 19:33:25 2016
+Local current time : Mon Sep 26 23:16:31 2016
                    ___         
                   / y \       
                  /b   y\     
@@ -154,7 +154,7 @@ Local current time : Mon Sep 26 19:33:25 2016
                  \b   y/     
                   \_r_/       
 We finde the solution!
-Local current time : Mon Sep 26 19:33:25 2016
+Local current time : Mon Sep 26 23:16:31 2016
                    ___         
                   / y \       
                  /b   y\     
@@ -175,7 +175,7 @@ Local current time : Mon Sep 26 19:33:25 2016
                  \b   y/     
                   \_r_/       
 We finde the solution!
-Local current time : Mon Sep 26 19:33:36 2016
+Local current time : Mon Sep 26 23:16:42 2016
                    ___         
                   / y \       
                  /b   r\     
@@ -196,8 +196,8 @@ Local current time : Mon Sep 26 19:33:36 2016
                  \r   b/     
                   \_r_/       
 algorithm                   Tantrix pyramid 6     
-breadth_first_tree_search   <9331/9332/23496/(('b>
-depth_first_tree_search     <   7/   8/  63/(('r> 
-depth_first_graph_search    <   7/   8/  63/(('r> 
-breadth_first_search        <6971/9332/9336/(('b> 
+breadth_first_tree_search   <9331/9332/10872/(('b>
+depth_first_tree_search     <   7/   8/  58/(('r> 
+depth_first_graph_search    <   7/   8/  58/(('r> 
+breadth_first_search        <6971/9332/9331/(('b> 
 End
