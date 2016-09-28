@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Basic staff to solve HW1 in ITI8600.
-
-This is a complete solution, and gives you an initial idea how to proceed. 
-Currently can place all 6 tiles in a valid way
-on the pyramid containing of 6 tiles.
+prog to solve HW1 in ITI8600.
 
 it is posible to sped ou, if route print out to log
 hw1-6tiles-solution.py > log.txt
@@ -14,8 +10,8 @@ import time
 import search
 
 """
-   We actually have 6 tiles, thus we call those realTiles.
-   In the instantiation of the Problem class we create all rotations.
+   We actually have 15 tiles, thus we call those realTiles.
+   In the instantiation of the Problem class we create all rotations. (15*6=90)
 """
 realTiles=[
    ('y','r','b','b','r','y'),
@@ -45,9 +41,66 @@ def testY(t1,t2):
     
 def testZ(t1,t2):
      return testAxis(t2,t1,2);
-     
-def printField(state):
-    """ The tiles are arranged in such a way (the pyramid is rotated
+
+def formatTile(tile, spases= 0):
+    """
+     ' for big field it is  better to print out tiles seperatly
+     '    _______
+     '   /   c   \
+     '  /1       3\
+     ' /           \
+     ' \           /
+     '  \0       4/
+     '   \___c___/     
+     '           
+     """
+ 
+    s = """   _______
+  /   2   \\
+ /1       3\\
+/           \\
+\\           /
+ \\0       4/
+  \\___5___/ """
+           
+    for i in range(6):
+        color_pos = '%d'%i
+        color_value = tile[i]
+        s = s.replace(color_pos, color_value)
+    print s    
+    return s    
+
+s = ''    
+for t in realTiles:    
+    s +="print out tile %s \n"%str(t)
+    s += formatTile(t) + "\n"
+print s
+
+def printField(state):                                                         
+    """                                                                        
+                                                       _______           
+                                                      /   c   \          
+                                                     /b       a\          
+                                             _______/           \    
+                                            /   c   \           /              
+                                           /b       b\b       b/                 
+                                   _______/           \___c___/           
+                                  /   c   \           /   c   \          
+                                 /b       a\a       b/b       a\          
+                                /           \___c___/           \        
+                                \           /   c   \           /        
+                                 \a       b/         \a       b/
+                                  \___c___/           \___c___/     
+                                
+                                
+                                  
+  
+    
+    
+    
+    
+    
+    The tiles are arranged in such a way (the pyramid is rotated
         -90 degrees because of ascii convenience):
                   X                    Z
                  /          ___        |
@@ -124,35 +177,6 @@ class TantrixPyramid6(search.Problem):
                 self.tiles.add(leftShift(tile,i))
         print "Init compled, total we have %d tiles, including all rotations" % len(self.tiles)   
         printField(self.gameSet )
-        """
-        В этом цикле считается число возможных вариантов сопрекосновений ребер?
-        И затем печатается. В случае 6 фигурок : 6x6=36; в случае 15 будет 15x6?
-
-        Нет.
-        Этот цикл нужен для того, чтобы на основании 6 "realTiles" сделать 36 "self.tiles" в которых будут все повороты фишек.
-        Пример из двух фишек
-        realTiles=[
-           ('y','r','b','b','r','y'),
-           ('y','b','r','r','b','y')]
-        Даст 2х6=12 фишек с вращением :
-         ('y','r','b','b','r','y'),
-         ('y','y','r','b','b','r'),
-         ('r','y','y','r','b','b'),
-         ('b','r','y','y','r','b'),
-         ('b','b','r','y','y','r'),
-         ('r','b','b','r','y','y'),
-         
-         ('y','b','r','r','b','y'),
-         ('y','y','b','r','r','b'),
-         ('b','y','y','b','r','r'),
-         ('r','b','y','y','b','r'),
-         ('r','r','b','y','y','b'),   
-         ('b','r','r','b','y','y'), 
-        
-        Именно из этого глобального поля возможностей будут потом отобраны те фишки, что мы вернем в функции actions -  return enabledActions 
-        
-        """
-        
         
     def actions(self,state):    
         #print "function to return possible actions from current state"
@@ -161,23 +185,13 @@ class TantrixPyramid6(search.Problem):
         #print "i = %d "%i
         enabledActions=set(self.tiles)
         toRemove=[]  # list of the tiles that do not have matching color     
-        """
-        Функция  def actions
-        Не совсем понимаем что происходит здесь:
-        """        
+        
         if i == 0:
             return enabledActions
         else:
             for j in range(i):  # go over all puted tiles and 
                 for k in range(0,6): #remove all rotation of choisen tile
-                   enabledActions.remove(leftShift(state[j],k))                   
-                   """
-                   Начнем с того, что  i это сколько ячеек поля уже занято фишками
-                   Если ноль, то в первую ячейку можно положить любую из 36 фишек
-                    if i == 0: return enabledActions
-
-                   если сколько то фишек уже лежит на поле, то нужно удалить из списка возможных 36 фишек те 6 вариантов, которые связаны с этой конкретной фишкой.
-                   """
+                   enabledActions.remove(leftShift(state[j],k))
         
         T = list()
         for s in state:
@@ -208,51 +222,12 @@ class TantrixPyramid6(search.Problem):
         #print "return enabledActions" 
         #print enabledActions
         return enabledActions
-        
-        """
-         Можем в крации описать как работает алгоритм сравнения цветов
-         в функции actions? Понятно, что ищются возможные actions, 
-         и  в ходе проверки на несовпадение, удаляются, если не совпали.
-         Не ясна сама проверка по какому принципу происходит.
-         '          ___
-         '         /   \                    _2_
-         '        /     \                  /   \
-         '    ___/   2   \                1     3
-         '   /   \       /               /       \
-         '  /     \     /                \       /
-         ' /   0   \___/                  0     4
-         ' \       /   \                   \_5_/
-         '  \     /     \ 
-         '   \___/   1   \
-         '       \       /
-         '        \     / 
-         '         \___/                     
-         '        
-         Когда ставим фишку с номером 1, то проверяем, 
-         чтобы цвет на грани 4 фишки с номером 0 
-         совпадал с цветом грани 1 у фишки 1, делаем проверку по оси Y - testY(T[0], t)
-           
-         Когда ставим фишку с номером 2, то проверяем, 
-         чтобы цвет на грани 3 фишки с номером 0 
-         совпадал с цветом грани 0 у фишки 2, делаем проверку по оси X
-         А так же чтобы цвет на грани 2 фишки с номером 1 
-         совпадал с цветом грани 5 у фишки 2, делаем проверку по оси Z  (testX(T[0],t) and testZ(T[1],t)):
-        """
                 
     def result(self, state, action):
         newState = list(state)
         i = state.index(None)
         newState[i] = action
         return tuple(newState)
-        
-        """
-        Что именно делалет функция def result?
-        На основании текущего состояния - state, 
-        находит номер не занятой ячейки  = state.index(None)
-        И помещяает в эту свободную ячейку фишку из списка action:
-        newState[i] = action
-        ну и возвращает новое состояние            
-        """
     
     def goal_test(self, state):
         self.gameSet = state
@@ -274,10 +249,12 @@ class TantrixPyramid6(search.Problem):
         printField(self.gameSet )
         
 print "Start up"  
+
+"""
 tp6 = TantrixPyramid6(initialState,realTiles)
 localtime = time.asctime( time.localtime(time.time()) )
 print "Local current time :", localtime
-"""
+
 def breadth_first_tree_search(problem):
     "Search the shallowest nodes in the search tree first."
     return tree_search(problem, FIFOQueue())
@@ -291,7 +268,7 @@ def depth_first_graph_search(problem):
     return graph_search(problem, Stack())
 
 def breadth_first_search(problem):
-"""
+
 
 print "Ready to start breadth_first_tree_search"  
 search.breadth_first_tree_search(tp6)
@@ -310,69 +287,21 @@ localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start breadth_first_search"
 print "Local current time :", localtime
 search.breadth_first_search(tp6)
-
 """
-Функция:
-search.compare_searchers
-
-Выдает следующее:
-algorithm                   Tantrix pyramid 6     
-breadth_first_tree_search   <9331/9332/23496/(('b>
-depth_first_tree_search     <   7/   8/  63/(('r> 
-depth_first_graph_search    <   7/   8/  63/(('r> 
-breadth_first_search        <6971/9332/9336/(('b> 
-
-Слева понятно - названия алгоритмов.
-Что значат значения в правом столбце?
-
+"""
    There are tools available to compare
    search algorithms. The stats contain the following data:
    number of successors /
    number of goal tests /
    number of states /
    first 4 bytes of the found goal
-"""
+
 search.compare_searchers([tp6],["algorithm","Tantrix pyramid 6"],[
         search.breadth_first_tree_search,
         search.depth_first_tree_search,        
         search.depth_first_graph_search,
         search.breadth_first_search
     ])
+"""    
 print "End"
 """END"""
-
-"""
-Вопрос про initialState = [None,None,None,None,None,None].
-Вроде нам понятно что это значет, но на всякий случай уточни что это.
-initialState = [None,None,None,None,None,None].
-Вначале на поле из 6 ячеек нет ничего
-
-
-Потом алгоритм поиска будет выкладывать в первую ячейку одну фишку, например  ('r','y','y','r','b','b'),
-и состояние поля будет State = [('r','y','y','r','b','b'),None,None,None,None,None].
-Потом мы этим циклом выкинем все 6 вращенией первой фишки:
-for k in range(0,6): #remove all rotation of choisen tile
-    enabledActions.remove(leftShift(state[i],k))
-
-(удалим эти элементы из начального массива:
- ('y','r','b','b','r','y'),
- ('y','y','r','b','b','r'),
- ('r','y','y','r','b','b'),
- ('b','r','y','y','r','b'),
- ('b','b','r','y','y','r'),
- ('r','b','b','r','y','y'),
-у нас останетцв 30 фишек.
-
-Потом мы проверим, и удалим все фишки, которые не могут лечь на ячейку 1, потому что
-цвет на грани 4 фишки с номером 0 (b)
-совпадал с цветом грани 1 у фишки 1, делаем проверку по оси Y
-testY(T[0], t)
-
-
-и на втором шаге мы можем выложить эту фишку
-('r','b','y','y','b','r'),
-И тогда состояние поля будет 
-State = [('r','y','y','r','B','b'),('r','B','y','y','b','r'),None,None,None,None].
-
-И так далее
-"""
