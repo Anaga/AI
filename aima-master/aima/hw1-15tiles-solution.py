@@ -11,16 +11,13 @@ import search
 
 """
    We actually have 15 tiles, thus we call those realTiles.
+   For the demo propos, we can decrease the cout on tiles, to get fast result.
+   6 is wery fast
+   10 is take some time,
+   15 can be hours.
+   
    In the instantiation of the Problem class we create all rotations. (15*6=90)
 """
-realTiles=[
-   ('y','r','b','b','r','y'),
-   ('y','b','r','r','b','y'),
-   ('y','r','y','b','b','r'),
-   ('y','b','y','r','b','r'),
-   ('y','r','b','r','b','y'),
-   ('y','r','y','b','r','b')
-   ]
 
 realTiles15 = [
     ('r','y','g','r','g','y'),
@@ -31,14 +28,27 @@ realTiles15 = [
     ('y','b','y','g','g','b'),
     ('r','y','r','y','b','b'),
     ('r','b','r','g','b','g'),
+
     ('y','y','r','b','b','r'),
-    ('b','r','r','b','y','y')
+    ('b','r','r','b','y','y'),
+    ('r','y','y','b','b','r'),
+    ('b','b','y','y','r','r')
     ] 
     
 """    
+    ('r','y','g','r','g','y'),
+    
+    ('y','r','b','r','y','b'),
+    ('y','b','g','b','g','y'),
 
+    ('y','b','y','g','g','b'),
+    ('r','y','r','y','b','b'),
+    ('r','b','r','g','b','g'),
+        
+    ('y','y','r','b','b','r'),
+    ('b','r','r','b','y','y'),
     ('r','y','y','b','b','r'),
-    ('b','b','y','y','r','r'),
+    ('b','b','y','y','r','r')
     
     ('g','g','y','b','b','y'),    
     ('b','r','b','y','r','y'),
@@ -112,29 +122,29 @@ def printField(state):
      ' each game field have own letters (A-O)
      '  (A B C D E F G H I J K L M N O)
      '               /X                              _______      Z  
-     '              /                               /   2   \     |           X, Y, Z
-     '             /                               /1       3\    |   A check -, -, -
-     '            /                        _______/     O     \   |   B check -, A, -   if cell_ID == 1: return -1, 0, -1
-     '           /                        /   2   \     O     /   |   C check A, -, B   if cell_ID == 2: return  0, -1, 1
-     '          /                        /1       3\0       4/    |   D check -, B, -   if cell_ID == 3: return -1, 1, -1
-     '         /                 _______/     J     \___5___/     |   E check B, C, D   if cell_ID == 4: return  1, 2,  3          
-     '        /                 /   2   \     J     /   2   \     |   F check C, -, E   if cell_ID == 5: return  2, -1, 4
-     '       /                 /1       3\0       4/1       3\    |   G check -, D, -   if cell_ID == 6: return -1, 3, -1       
-     '      /          _______/     F     \___5___/     N     \   |   H check D, E, G   if cell_ID == 7: return  3, 4,  6                      
-     '     /          /   2   \     F     /   2   \     N     /   |   I check E, F, H   if cell_ID == 8: return  4, 5,  7                                      
-     '    /          /1       3\0       4/1       3\0       4/    |   J check F, -, I   if cell_ID == 9: return  5, -1, 8                                            
-     '   /   _______/     C     \___5___/     I     \___5___/     |   K check -, G, -   if cell_ID ==10: return -1, 6, -1                       
-     '  /   /   2   \     C     /   2   \     I     /   2   \     |   L check G, H, K   if cell_ID ==11: return  6, 7, 10                     
-     ' /   /1       3\0       4/1       3\0       4/1       3\    |   M check H, I, L   if cell_ID ==12: return  7, 8, 11                    
-     '/   /     A     \___5___/     E     \___5___/     M     \   |   N check D, E, M   if cell_ID ==13: return  8, 9, 12                 
-     '\   \     A     /   2   \     E     /   2   \     M     /   |   O check J, -, H   if cell_ID ==14: return  9, -, 13           
-     ' \   \0       4/1       3\0       4/1       3\0       4/    |              
-     '  \   \___5___/     B     \___5___/     H     \___5___/     |                      
-     '   \          \     B     /   2   \     H     /   2   \     |               
-     '    \          \0       4/1       3\0       4/1       3\    |          
-     '     \          \___5___/     D     \___5___/     L     \   |             
-     '      \                 \     D     /   2   \     L     /   |             
-     '       \                 \0       4/1       3\0       4/    |             
+     '              /                               /   2   \     |   
+     '             /                               /1       3\    |   
+     '            /                        _______/     O     \   |   
+     '           /                        /   2   \     O     /   |   
+     '          /                        /1       3\0       4/    |   
+     '         /                 _______/     J     \___5___/     |          
+     '        /                 /   2   \     J     /   2   \     |          X, Y, Z 
+     '       /                 /1       3\0       4/1       3\    |  A check -, -, -     
+     '      /          _______/     F     \___5___/     N     \   |  B check -, A, -   if cell_ID == 1: return -1, 0, -1                    
+     '     /          /   2   \     F     /   2   \     N     /   |  C check A, -, B   if cell_ID == 2: return  0, -1, 1                                    
+     '    /          /1       3\0       4/1       3\0       4/    |  D check -, B, -   if cell_ID == 3: return -1, 1, -1                                          
+     '   /   _______/     C     \___5___/     I     \___5___/     |  E check B, C, D   if cell_ID == 4: return  1, 2,  3                        
+     '  /   /   2   \     C     /   2   \     I     /   2   \     |  F check C, -, E   if cell_ID == 5: return  2, -1, 4                   
+     ' /   /1       3\0       4/1       3\0       4/1       3\    |  G check -, D, -   if cell_ID == 6: return -1, 3, -1                     
+     '/   /     A     \___5___/     E     \___5___/     M     \   |  H check D, E, G   if cell_ID == 7: return  3, 4,  6                  
+     '\   \     A     /   2   \     E     /   2   \     M     /   |  I check E, F, H   if cell_ID == 8: return  4, 5,  7            
+     ' \   \0       4/1       3\0       4/1       3\0       4/    |  J check F, -, I   if cell_ID == 9: return  5, -1, 8    
+     '  \   \___5___/     B     \___5___/     H     \___5___/     |  K check -, G, -   if cell_ID ==10: return -1, 6, -1                       
+     '   \          \     B     /   2   \     H     /   2   \     |  L check G, H, K   if cell_ID ==11: return  6, 7, 10                
+     '    \          \0       4/1       3\0       4/1       3\    |  M check H, I, L   if cell_ID ==12: return  7, 8, 11           
+     '     \          \___5___/     D     \___5___/     L     \   |  N check D, E, M   if cell_ID ==13: return  8, 9, 12              
+     '      \                 \     D     /   2   \     L     /   |  O check J, -, H   if cell_ID ==14: return  9, -, 13              
+     '       \                 \0       4/1       3\0       4/    |                        
      '        \                 \___5___/     G     \___5___/     |   
      '         \                        \     G     /   2   \     | 
      '          \                        \0       4/1       3\    | 
@@ -183,11 +193,8 @@ def printField(state):
             T.append ("      ")
         else: T.append(s)
     for letter in field_letters:
-        T.append ("      ")
-   
-    l=0    
-   
-    
+        T.append ("      ")   
+    l=0  
     for let in field_letters:
         for i in range(6):
             color_pos = '%s%d'%(let,i)
@@ -202,6 +209,7 @@ class TantrixPyramid15(search.Problem):
     def __init__(self,initial15,realTiles15):
         self.initial = tuple(initial15)
         self.gameSet = initial15 #for good printing
+        self.gameTiles = realTiles15
         for tile in realTiles15:
             for i in range(0,6):
                 self.tiles.add(leftShift(tile,i))
@@ -245,8 +253,8 @@ class TantrixPyramid15(search.Problem):
         
         if (i!= self.number_of_puted_tiles):
             self.number_of_puted_tiles = i        
-            print "number_of_puted_tiles = %d "%i
-            printField(self.gameSet)
+            #print "number_of_puted_tiles = %d "%i
+            #printField(self.gameSet)
         enabledActions=set(self.tiles)
         toRemove=[]  # list of the tiles that do not have matching color     
         
@@ -282,11 +290,12 @@ class TantrixPyramid15(search.Problem):
     def goal_test(self, state):
         self.gameSet = state
         i = state.count(None)
-        #print "plase %d ties"%(6-i)
-        #printField(self.gameSet )
-        for el in state:           
-            if el is None:
-                return False
+        number_of_puted_tiles = (15 - i)
+        #print "total gameTiles is %d" %len(self.gameTiles)
+        #print "plase %d ties"%(number_of_puted_tiles)
+        
+        if (number_of_puted_tiles != len(self.gameTiles)): return False
+
         print "We finde the solution!"
         localtime = time.asctime( time.localtime(time.time()) )
         print "Local current time :", localtime
@@ -298,89 +307,7 @@ class TantrixPyramid15(search.Problem):
         print "Current State:"
         printField(self.gameSet )
         
-class TantrixPyramid6(search.Problem):
-    tiles = set()
-    def __init__(self,initial,realTiles):
-        self.initial = tuple(initial)
-        self.gameSet = initial #for good printing
-        for tile in realTiles:
-            for i in range(0,6):
-                self.tiles.add(leftShift(tile,i))
-        print "Init compled, total we have %d tiles, including all rotations" % len(self.tiles)   
-        printField(self.gameSet )
-        
-    def actions(self,state):    
-        print "function to return possible actions from current state"
-        print state
-        i =  state.index(None)
-        print "i = %d "%i
-        enabledActions=set(self.tiles)
-        toRemove=[]  # list of the tiles that do not have matching color     
-        
-        if i == 0:
-            return enabledActions
-        else:
-            for j in range(i):  # go over all puted tiles and 
-                for k in range(0,6): #remove all rotation of choisen tile
-                   enabledActions.remove(leftShift(state[j],k))
-        
-        T = list()
-        for s in state:
-          T.append(s)    # get the i-st tile 
-          
-        for t in enabledActions:  # go over all lefted tiles and if this tile 't' not match to t0, remove it from enabledActions   
-            if i == 1: # T1, check for T0-Y
-                # we check match T0 and T1, so check only Y axis            
-                if False == testY(T[0], t): toRemove.append(t)
-
-            if i == 2: # T2, check for T0-X, T1-Z 
-                #  we check match T0 and T2 on X axis                           
-                # and check match T1 and T2 on Z axis  
-                if False == (testX(T[0],t) and testZ(T[1],t)): toRemove.append(t)
-
-            if i == 3:  # T3, check for T1-Y                    
-                if False == testY(T[1], t):  toRemove.append(t)             
-                
-            if i == 4:  # T4, check for T1-X, T2-Y, T3-Z 
-                if False == (testX(T[1], t) and testY(T[2], t) and testZ(T[3], t)): toRemove.append(t)
-        
-            if i == 5: # T5, check for T2-X, T4-Z          
-                if False == (testX(T[2], t) and testZ(T[4], t)): toRemove.append(t)
-                    
-        for t in toRemove:
-            #print t
-            enabledActions.remove(t)
-        #print "return enabledActions" 
-        #print enabledActions
-        return enabledActions
-                
-    def result(self, state, action):
-        newState = list(state)
-        i = state.index(None)
-        newState[i] = action
-        return tuple(newState)
-    
-    def goal_test(self, state):
-        self.gameSet = state
-        i = state.count(None)
-        #print "plase %d ties"%(6-i)
-        #printField(self.gameSet )
-        for el in state:           
-            if el is None:
-                return False
-        print "We finde the solution!"
-        localtime = time.asctime( time.localtime(time.time()) )
-        print "Local current time :", localtime
-        printField(self.gameSet )
-        return True
-
-    def prin(self):
-        print "TantrixPyramid6"
-        print "Current State:"
-        printField(self.gameSet )
-        
 print "Start up"  
-
 
 tp15 = TantrixPyramid15(initialState15,realTiles15)
 localtime = time.asctime( time.localtime(time.time()) )
@@ -392,20 +319,20 @@ search.breadth_first_tree_search(tp15)
 
 localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start depth_first_tree_search"  
-"""
+
 print "Local current time :", localtime
-search.depth_first_tree_search(tp6)
+search.depth_first_tree_search(tp15)
 
 localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start depth_first_graph_search"  
 print "Local current time :", localtime
-search.depth_first_graph_search(tp6)
+search.depth_first_graph_search(tp15)
 
 localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start breadth_first_search"
 print "Local current time :", localtime
-search.breadth_first_search(tp6)
-"""
+search.breadth_first_search(tp15)
+
 """
    There are tools available to compare
    search algorithms. The stats contain the following data:
@@ -413,13 +340,15 @@ search.breadth_first_search(tp6)
    number of goal tests /
    number of states /
    first 4 bytes of the found goal
+"""  
 
-search.compare_searchers([tp6],["algorithm","Tantrix pyramid 6"],[
+search.compare_searchers([tp15],["algorithm","Tantrix pyramid 15"],[
         search.breadth_first_tree_search,
         search.depth_first_tree_search,        
         search.depth_first_graph_search,
         search.breadth_first_search
     ])
-"""    
+
+  
 print "End"
 """END"""
