@@ -35,6 +35,8 @@ def leftShift(tup, n):  #Taken from http://stackoverflow.com/questions/5299135/h
     return tup[n:] + tup[:n]
 
 def testAxis(tilA, tilB, n):
+    if tilB[n]== ' ':           #spesial test for VOID tile
+        return True
     return tilA[n+3]==tilB[n]
     
 def testX(t1,t2):
@@ -152,7 +154,26 @@ class TantrixPyramid6(search.Problem):
         Именно из этого глобального поля возможностей будут потом отобраны те фишки, что мы вернем в функции actions -  return enabledActions 
         
         """
+    def getCellNumberToTest(self, cell_ID):
+        # return  nr_X, nr_Y, nr_Z, -1 for void tile
+        if cell_ID == 1: return -1, 0, -1
+        if cell_ID == 2: return  0, -1, 1
+        if cell_ID == 3: return -1, 1, -1
+        if cell_ID == 4: return  1, 2,  3
+        if cell_ID == 5: return  2, -1, 4
+        if cell_ID == 6: return -1, 1, -1
+
+    def generalTest(self, T, tileToTest, nr_X, nr_Y, nr_Z):
+        if nr_X == -1: X= True
+        else: X = (testX(T[nr_X], tileToTest))
         
+        if nr_Y == -1: Y= True
+        else: Y = (testY(T[nr_Y], tileToTest))    
+
+        if nr_Z == -1: Z= True
+        else: Z = (testZ(T[nr_Z], tileToTest))
+        
+        return ( X and Y and Z)
         
     def actions(self,state):    
         #print "function to return possible actions from current state"
@@ -179,11 +200,17 @@ class TantrixPyramid6(search.Problem):
                    если сколько то фишек уже лежит на поле, то нужно удалить из списка возможных 36 фишек те 6 вариантов, которые связаны с этой конкретной фишкой.
                    """
         
+        nr_X, nr_Y, nr_Z = self.getCellNumberToTest(i)
+        
+        #print nr_X, nr_Y, nr_Z 
+        
         T = list()
         for s in state:
           T.append(s)    # get the i-st tile 
           
         for t in enabledActions:  # go over all lefted tiles and if this tile 't' not match to t0, remove it from enabledActions   
+            if False == ( self.generalTest(T,t ,nr_X, nr_Y, nr_Z) ): toRemove.append(t)            
+            """
             if i == 1: # T1, check for T0-Y
                 # we check match T0 and T1, so check only Y axis            
                 if False == testY(T[0], t): toRemove.append(t)
@@ -201,7 +228,8 @@ class TantrixPyramid6(search.Problem):
         
             if i == 5: # T5, check for T2-X, T4-Z          
                 if False == (testX(T[2], t) and testZ(T[4], t)): toRemove.append(t)
-                    
+            """
+            
         for t in toRemove:
             #print t
             enabledActions.remove(t)
@@ -300,7 +328,7 @@ localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start depth_first_tree_search"  
 print "Local current time :", localtime
 search.depth_first_tree_search(tp6)
-
+"""
 localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start depth_first_graph_search"  
 print "Local current time :", localtime
@@ -311,7 +339,7 @@ print "Ready to start breadth_first_search"
 print "Local current time :", localtime
 search.breadth_first_search(tp6)
 
-"""
+
 Функция:
 search.compare_searchers
 
@@ -331,13 +359,13 @@ breadth_first_search        <6971/9332/9336/(('b>
    number of goal tests /
    number of states /
    first 4 bytes of the found goal
-"""
+
 search.compare_searchers([tp6],["algorithm","Tantrix pyramid 6"],[
         search.breadth_first_tree_search,
         search.depth_first_tree_search,        
         search.depth_first_graph_search,
         search.breadth_first_search
-    ])
+    ])"""
 print "End"
 """END"""
 

@@ -31,9 +31,12 @@ realTiles15 = [
     ('y','b','y','g','g','b'),
     ('r','y','r','y','b','b'),
     ('r','b','r','g','b','g'),
-    
     ('y','y','r','b','b','r'),
-    ('b','r','r','b','y','y'),
+    ('b','r','r','b','y','y')
+    ] 
+    
+"""    
+
     ('r','y','y','b','b','r'),
     ('b','b','y','y','r','r'),
     
@@ -41,9 +44,9 @@ realTiles15 = [
     ('b','r','b','y','r','y'),
     ('g','y','y','g','r','r'),
     ('y','y','g','g','b','b'),
-    ('y','r','b','r','b','y')
-    ]
-
+    ('y','r','b','r','b','y')   ]
+    """
+    
    
 initialState = [None,None,None,None,None,None]   
 initialState15 = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
@@ -55,6 +58,7 @@ def leftShift(tup, n):  #Taken from http://stackoverflow.com/questions/5299135/h
     n %= len(tup)
     return tup[n:] + tup[:n]
 
+    
 def testAxis(tilA, tilB, n):
     return tilA[n+3]==tilB[n]
     
@@ -107,23 +111,23 @@ def printField(state):
      ' The game field for tiles are arranged in such a way. 
      ' each game field have own letters (A-O)
      '  (A B C D E F G H I J K L M N O)
-     '               /X                              _______      Z 
-     '              /                               /   2   \     |  
-     '             /                               /1       3\    |  
-     '            /                        _______/     O     \   |  
-     '           /                        /   2   \     O     /   |  
-     '          /                        /1       3\0       4/    |  
-     '         /                 _______/     J     \___5___/     |                      
-     '        /                 /   2   \     J     /   2   \     |                       
-     '       /                 /1       3\0       4/1       3\    |                  
-     '      /          _______/     F     \___5___/     N     \   |                          
-     '     /          /   2   \     F     /   2   \     N     /   |                          
-     '    /          /1       3\0       4/1       3\0       4/    |                       
-     '   /   _______/     C     \___5___/     I     \___5___/     |                      
-     '  /   /   2   \     C     /   2   \     I     /   2   \     |                       
-     ' /   /1       3\0       4/1       3\0       4/1       3\    |                      
-     '/   /     A     \___5___/     E     \___5___/     M     \   |                   
-     '\   \     A     /   2   \     E     /   2   \     M     /   |             
+     '               /X                              _______      Z  
+     '              /                               /   2   \     |           X, Y, Z
+     '             /                               /1       3\    |   A check -, -, -
+     '            /                        _______/     O     \   |   B check -, A, -   if cell_ID == 1: return -1, 0, -1
+     '           /                        /   2   \     O     /   |   C check A, -, B   if cell_ID == 2: return  0, -1, 1
+     '          /                        /1       3\0       4/    |   D check -, B, -   if cell_ID == 3: return -1, 1, -1
+     '         /                 _______/     J     \___5___/     |   E check B, C, D   if cell_ID == 4: return  1, 2,  3          
+     '        /                 /   2   \     J     /   2   \     |   F check C, -, E   if cell_ID == 5: return  2, -1, 4
+     '       /                 /1       3\0       4/1       3\    |   G check -, D, -   if cell_ID == 6: return -1, 3, -1       
+     '      /          _______/     F     \___5___/     N     \   |   H check D, E, G   if cell_ID == 7: return  3, 4,  6                      
+     '     /          /   2   \     F     /   2   \     N     /   |   I check E, F, H   if cell_ID == 8: return  4, 5,  7                                      
+     '    /          /1       3\0       4/1       3\0       4/    |   J check F, -, I   if cell_ID == 9: return  5, -1, 8                                            
+     '   /   _______/     C     \___5___/     I     \___5___/     |   K check -, G, -   if cell_ID ==10: return -1, 6, -1                       
+     '  /   /   2   \     C     /   2   \     I     /   2   \     |   L check G, H, K   if cell_ID ==11: return  6, 7, 10                     
+     ' /   /1       3\0       4/1       3\0       4/1       3\    |   M check H, I, L   if cell_ID ==12: return  7, 8, 11                    
+     '/   /     A     \___5___/     E     \___5___/     M     \   |   N check D, E, M   if cell_ID ==13: return  8, 9, 12                 
+     '\   \     A     /   2   \     E     /   2   \     M     /   |   O check J, -, H   if cell_ID ==14: return  9, -, 13           
      ' \   \0       4/1       3\0       4/1       3\0       4/    |              
      '  \   \___5___/     B     \___5___/     H     \___5___/     |                      
      '   \          \     B     /   2   \     H     /   2   \     |               
@@ -142,36 +146,36 @@ def printField(state):
      
     plase_holder = """  
      '                                              _______      
-     '                                             /   2   \     
-     '                                            /1       3\    
-     '                                    _______/     O     \   
-     '                                   /   2   \     O     /   
-     '                                  /1       3\\0       4/   
-     '                          _______/     J     \___5___/                      
-     '                         /   F2   \     J     /   2   \                       
-     '                        /F1       F3\\0       4/1       3\                 
-     '                _______/           \___5___/     N     \                        
-     '               /   C2   \           /   2   \     N     /                    
-     '              /C1       C3\\F0       F4/1       3\\0       4/                        
-     '      _______/           \___F5___/     I     \___5___/                      
-     '     /   A2   \           /   E2   \     I     /   2   \                        
-     '    /A1       A3\\C0       C4/E1       E3\\0       4/1       3\                       
-     '   /           \___C5___/           \___5___/     M     \                  
-     '   \           /   B2   \           /   2   \     M     /            
-     '    \\A0       A4/B1       B3\\E0       E4/1       3\\0       4/               
-     '     \___A5___/           \___E5___/     H     \___5___/                       
-     '             \           /   D2   \     H     /   2   \                
-     '              \\B0       B4/D1       D3\\0       4/1       3\           
-     '               \___B5___/           \___5___/     L     \      
-     '                       \           /   2   \     L     /      
-     '                        \\D0       D4/1       3\\0       4/       
-     '                         \___D5___/     G     \___5___/    
-     '                                 \     G     /   2   \    
-     '                                  \\0       4/1       3\  
-     '                                   \___5___/     K     \  
-     '                                           \     K     /  
-     '                                            \\0       4/  
-     '                                             \___5___/    
+     '                                             /   O2   \     
+     '                                            /O1       O3\    
+     '                                    _______/           \   
+     '                                   /   J2   \           /   
+     '                                  /J1       J3\\O0       O4/   
+     '                          _______/           \___O5___/                      
+     '                         /   F2   \           /   N2   \                       
+     '                        /F1       F3\\J0       J4/N1       N3\                 
+     '                _______/           \___J5___/           \                        
+     '               /   C2   \           /   I2   \           /                    
+     '              /C1       C3\\F0       F4/I1       I3\\N0       N4/                        
+     '      _______/           \___F5___/           \___N5___/                      
+     '     /   A2   \           /   E2   \           /   M2   \                        
+     '    /A1       A3\\C0       C4/E1       E3\\I0       I4/M1       M3\                       
+     '   /           \___C5___/           \___I5___/           \                  
+     '   \           /   B2   \           /   H2   \           /            
+     '    \\A0       A4/B1       B3\\E0       E4/H1       H3\\M0       M4/               
+     '     \___A5___/           \___E5___/           \___M5___/                       
+     '             \           /   D2   \           /   L2   \                
+     '              \\B0       B4/D1       D3\\H0       H4/L1       L3\           
+     '               \___B5___/           \___H5___/           \      
+     '                       \           /   G2   \           /      
+     '                        \\D0       D4/G1       G3\\L0       L4/       
+     '                         \___D5___/           \___L5___/    
+     '                                 \           /   K2   \    
+     '                                  \\G0       G4/K1       K3\  
+     '                                   \___G5___/           \  
+     '                                           \           /  
+     '                                            \\K0       K4/  
+     '                                             \___K5___/    
      '  """
     T = list()  
     for s in state:
@@ -201,14 +205,48 @@ class TantrixPyramid15(search.Problem):
         for tile in realTiles15:
             for i in range(0,6):
                 self.tiles.add(leftShift(tile,i))
-        print "Init compled, total we have %d tiles, including all rotations" % len(self.tiles)   
-        printField(self.gameSet )
+        print "Init compled, total we have %d tiles, including all rotations" % len(self.tiles)
+        self.number_of_puted_tiles = 0
+        printField(self.gameSet)
+    
+    def getCellNumberToTest(self, cell_ID):
+        # return  nr_X, nr_Y, nr_Z, -1 for void tile        
+        if cell_ID == 1: return -1, 0, -1
+        if cell_ID == 2: return  0, -1, 1
+        if cell_ID == 3: return -1, 1, -1
+        if cell_ID == 4: return  1, 2,  3  
+        if cell_ID == 5: return  2, -1, 4
+        if cell_ID == 6: return -1, 3, -1  
+        if cell_ID == 7: return  3, 4,  6  
+        if cell_ID == 8: return  4, 5,  7  
+        if cell_ID == 9: return  5, -1, 8  
+        if cell_ID ==10: return -1, 6, -1  
+        if cell_ID ==11: return  6, 7, 10  
+        if cell_ID ==12: return  7, 8, 11  
+        if cell_ID ==13: return  8, 9, 12  
+        if cell_ID ==14: return  9,-1, 13 
+
+    def generalTest(self, T, tileToTest, nr_X, nr_Y, nr_Z):
+        if nr_X == -1: X= True
+        else: X = (testX(T[nr_X], tileToTest))
+        
+        if nr_Y == -1: Y= True
+        else: Y = (testY(T[nr_Y], tileToTest))    
+
+        if nr_Z == -1: Z= True
+        else: Z = (testZ(T[nr_Z], tileToTest))
+        
+        return ( X and Y and Z)
         
     def actions(self,state):    
         #print "function to return possible actions from current state"
         #print state
         i =  state.index(None)
-        print "i = %d "%i
+        
+        if (i!= self.number_of_puted_tiles):
+            self.number_of_puted_tiles = i        
+            print "number_of_puted_tiles = %d "%i
+            printField(self.gameSet)
         enabledActions=set(self.tiles)
         toRemove=[]  # list of the tiles that do not have matching color     
         
@@ -219,33 +257,15 @@ class TantrixPyramid15(search.Problem):
                 for k in range(0,6): #remove all rotation of choisen tile
                    enabledActions.remove(leftShift(state[j],k))
         
+        nr_X, nr_Y, nr_Z = self.getCellNumberToTest(i)
+        
         T = list()
         for s in state:
           T.append(s)    # get the i-st tile 
           
-        for t in enabledActions:  # go over all lefted tiles and if this tile 't' not match to t0, remove it from enabledActions   
-            if i == 1: # T1, check for T0-Y
-                # we check match T0 and T1, so check only Y axis            
-                if False == testY(T[0], t): toRemove.append(t)
-                
-                #printField(self.gameSet )
-
-            if i == 2: # T2, check for T0-X, T1-Z 
-                #  we check match T0 and T2 on X axis                           
-                # and check match T1 and T2 on Z axis  
-                if False == (testX(T[0],t) and testZ(T[1],t)): toRemove.append(t)
-
-            if i == 3:  # T3, check for T1-Y                    
-                if False == testY(T[1], t):  toRemove.append(t)             
-                
-            if i == 4:  # T4, check for T1-X, T2-Y, T3-Z 
-                if False == (testX(T[1], t) and testY(T[2], t) and testZ(T[3], t)): toRemove.append(t)
-                printField(self.gameSet )
-                
-        
-            if i == 5: # T5, check for T2-X, T4-Z          
-                if False == (testX(T[2], t) and testZ(T[4], t)): toRemove.append(t)
-                    
+        for t in enabledActions:  # go over all lefted tiles and if this tile 't' not match, remove it from enabledActions   
+            if False == ( self.generalTest(T, t , nr_X, nr_Y, nr_Z) ): toRemove.append(t)
+                   
         for t in toRemove:
             #print t
             enabledActions.remove(t)
