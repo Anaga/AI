@@ -1,3 +1,5 @@
+Ups, it is not a solution
+
 total gameTiles is 15
 plase 13 ties
 Local current time : Thu Sep 29 18:45:00 2016
