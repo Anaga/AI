@@ -322,14 +322,13 @@ tp15 = TantrixPyramid15(initialState15,realTiles15)
 localtime = time.asctime( time.localtime(time.time()) )
 print "Local current time :", localtime
 tp15.prin()
-
+"""
 print "Ready to start breadth_first_tree_search"  
-
 search.breadth_first_tree_search(tp15)
-
+"""
 localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start depth_first_tree_search"  
-"""
+
 print "Local current time :", localtime
 search.depth_first_tree_search(tp15)
 
@@ -339,6 +338,7 @@ print "Local current time :", localtime
 search.depth_first_graph_search(tp15)
 
 localtime = time.asctime( time.localtime(time.time()) )
+"""
 print "Ready to start breadth_first_search"
 print "Local current time :", localtime
 search.breadth_first_search(tp15)
@@ -351,14 +351,12 @@ search.breadth_first_search(tp15)
    number of states /
    first 4 bytes of the found goal
 """  
-"""
+
 search.compare_searchers([tp15],["algorithm","Tantrix pyramid 15"],[
-        search.breadth_first_tree_search,
         search.depth_first_tree_search,        
-        search.depth_first_graph_search,
-        search.breadth_first_search
+        search.depth_first_graph_search
     ])
 
-END"""  
+ 
 print "End"
 
