@@ -3,7 +3,7 @@
 prog to solve HW1 in ITI8600.
 
 it is posible to sped ou, if route print out to log
-hw1-6tiles-solution.py > log.txt
+hw1-15tiles-solution.py > log.txt
 
 """
 import time
@@ -32,7 +32,13 @@ realTiles15 = [
     ('y','y','r','b','b','r'),
     ('b','r','r','b','y','y'),
     ('r','y','y','b','b','r'),
-    ('b','b','y','y','r','r')
+    ('b','b','y','y','r','r'),
+    
+    ('g','g','y','b','b','y'),    
+    ('b','r','b','y','r','y'),
+    ('g','y','y','g','r','r'),
+    ('y','y','g','g','b','b'),
+    ('y','r','b','r','b','y')
     ] 
     
 """    
@@ -57,10 +63,7 @@ realTiles15 = [
     ('y','r','b','r','b','y')   ]
     """
     
-   
-initialState = [None,None,None,None,None,None]   
 initialState15 = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
-
 
 def leftShift(tup, n):  #Taken from http://stackoverflow.com/questions/5299135/how-to-efficiently-left-shift-a-tuple
     if not tup or not n:
@@ -291,9 +294,15 @@ class TantrixPyramid15(search.Problem):
         self.gameSet = state
         i = state.count(None)
         number_of_puted_tiles = (15 - i)
-        #print "total gameTiles is %d" %len(self.gameTiles)
-        #print "plase %d ties"%(number_of_puted_tiles)
         
+        if (number_of_puted_tiles != self.number_of_puted_tiles):
+          localtime = time.asctime( time.localtime(time.time()) )
+          print "Local current time :", localtime
+          printField(self.gameSet )
+          print "total gameTiles is %d" %len(self.gameTiles)
+          print "plase %d ties"%(number_of_puted_tiles)
+          self.number_of_puted_tiles = number_of_puted_tiles
+
         if (number_of_puted_tiles != len(self.gameTiles)): return False
 
         print "We finde the solution!"
@@ -315,11 +324,12 @@ print "Local current time :", localtime
 tp15.prin()
 
 print "Ready to start breadth_first_tree_search"  
+
 search.breadth_first_tree_search(tp15)
 
 localtime = time.asctime( time.localtime(time.time()) )
 print "Ready to start depth_first_tree_search"  
-
+"""
 print "Local current time :", localtime
 search.depth_first_tree_search(tp15)
 
@@ -333,7 +343,7 @@ print "Ready to start breadth_first_search"
 print "Local current time :", localtime
 search.breadth_first_search(tp15)
 
-"""
+
    There are tools available to compare
    search algorithms. The stats contain the following data:
    number of successors /
@@ -341,7 +351,7 @@ search.breadth_first_search(tp15)
    number of states /
    first 4 bytes of the found goal
 """  
-
+"""
 search.compare_searchers([tp15],["algorithm","Tantrix pyramid 15"],[
         search.breadth_first_tree_search,
         search.depth_first_tree_search,        
@@ -349,6 +359,6 @@ search.compare_searchers([tp15],["algorithm","Tantrix pyramid 15"],[
         search.breadth_first_search
     ])
 
-  
+END"""  
 print "End"
-"""END"""
+
