@@ -47,7 +47,7 @@ def N_Tailes(N):
         tryTails.append(realTilesSet[i])
     return tryTails
 
-realTiles15 = N_Tailes(6)
+realTiles15 = N_Tailes(8)
 """    
     ('r','y','g','r','g','y'),
     

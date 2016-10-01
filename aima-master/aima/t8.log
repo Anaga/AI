@@ -1,3 +1,4 @@
+Now we try to solve 8 tailes
 print out tile ('r', 'y', 'g', 'r', 'g', 'y') 
    _______
   /   g   \
@@ -98,7 +99,7 @@ Init compled, total we have 48 tiles, including all rotations
      '                                            \         /  
      '                                             \___ ___/    
      '  
-Startup time is: 10/01/16 13:18:57, 13:18:57
+Startup time is: 10/01/16 13:50:37, 13:50:37
 TantrixPyramid15
 Current State:
  
@@ -134,9 +135,48 @@ Current State:
      '                                            \         /  
      '                                             \___ ___/    
      '  
+Ready to start astar_search
+We finde the solution!
+Local current time : Sat Oct 01 13:52:27 2016
+ 
+     '                                              _______      
+     '                                             /       \     
+     '                                            /         \    
+     '                                    _______/           \   
+     '                                   /       \           /   
+     '                                  /         \         /   
+     '                          _______/           \___ ___/                      
+     '                         /   y   \           /       \                       
+     '                        /g       y\         /         \                 
+     '                _______/           \___ ___/           \                        
+     '               /   b   \           /       \           /                    
+     '              /r       b\b       b/         \         /                        
+     '      _______/           \___g___/           \___ ___/                      
+     '     /   y   \           /   g   \           /       \                        
+     '    /b       y\y       r/r       b\         /         \                       
+     '   /           \___y___/           \___ ___/           \                  
+     '   \           /   y   \           /   r   \           /            
+     '    \r       b/b       b\b       g/g       g\         /               
+     '     \___r___/           \___r___/           \___ ___/                       
+     '             \           /   r   \           /       \                
+     '              \g       y/y       y\y       y/         \           
+     '               \___g___/           \___r___/           \      
+     '                       \           /   r   \           /      
+     '                        \r       b/b       y\         /       
+     '                         \___b___/           \___ ___/    
+     '                                 \           /       \    
+     '                                  \r       b/         \  
+     '                                   \___y___/           \  
+     '                                           \           /  
+     '                                            \         /  
+     '                                             \___ ___/    
+     '  
+Now the astar_search complited, current time is:10/01/16 13:52:27, 13:52:27,  take 110.26699996 sec 
+
+
 Ready to start breadth_first_tree_search
 We finde the solution!
-Local current time : Sat Oct 01 13:18:58 2016
+Local current time : Sat Oct 01 13:52:29 2016
  
      '                                              _______      
      '                                             /       \     
@@ -170,12 +210,12 @@ Local current time : Sat Oct 01 13:18:58 2016
      '                                            \         /  
      '                                             \___ ___/    
      '  
-Now the breadth_first_tree_search complited, current time is: 10/01/16 13:18:58, 13:18:58
+Now the breadth_first_tree_search complited,  current time is:10/01/16 13:52:29, 13:52:29,  take 1.33000016212 sec 
 
 
 Ready to start depth_first_tree_search
 We finde the solution!
-Local current time : Sat Oct 01 13:18:58 2016
+Local current time : Sat Oct 01 13:52:29 2016
  
      '                                              _______      
      '                                             /       \     
@@ -209,12 +249,12 @@ Local current time : Sat Oct 01 13:18:58 2016
      '                                            \         /  
      '                                             \___ ___/    
      '  
-Now the depth_first_tree_search complited, current time : 10/01/16 13:18:58, 13:18:58
+Now the depth_first_tree_search complited,  current time is:10/01/16 13:52:29, 13:52:29,  take 0.0 sec 
 
 
 Ready to start depth_first_graph_search
 We finde the solution!
-Local current time : Sat Oct 01 13:18:59 2016
+Local current time : Sat Oct 01 13:52:29 2016
  
      '                                              _______      
      '                                             /       \     
@@ -248,12 +288,12 @@ Local current time : Sat Oct 01 13:18:59 2016
      '                                            \         /  
      '                                             \___ ___/    
      '  
-Now the depth_first_graph_search complited, current time : 10/01/16 13:18:59, 13:18:59
+Now the depth_first_graph_search complited,  current time is:10/01/16 13:52:29, 13:52:29,  take 0.00999999046326 sec 
 
 
 Ready to start breadth_first_search
 We finde the solution!
-Local current time : Sat Oct 01 13:20:05 2016
+Local current time : Sat Oct 01 13:53:36 2016
  
      '                                              _______      
      '                                             /       \     
@@ -287,11 +327,46 @@ Local current time : Sat Oct 01 13:20:05 2016
      '                                            \         /  
      '                                             \___ ___/    
      '  
-Now the breadth_first_search complited, current time : 10/01/16 13:20:05, 13:20:05
+Now the breadth_first_search complited, current time is:10/01/16 13:53:36, 13:53:36,  take 67.4979999065 sec 
 
 
 We finde the solution!
-Local current time : Sat Oct 01 13:20:06 2016
+Local current time : Sat Oct 01 13:55:34 2016
+ 
+     '                                              _______      
+     '                                             /       \     
+     '                                            /         \    
+     '                                    _______/           \   
+     '                                   /       \           /   
+     '                                  /         \         /   
+     '                          _______/           \___ ___/                      
+     '                         /   g   \           /       \                       
+     '                        /g       b\         /         \                 
+     '                _______/           \___ ___/           \                        
+     '               /   r   \           /       \           /                    
+     '              /y       y\y       y/         \         /                        
+     '      _______/           \___b___/           \___ ___/                      
+     '     /   b   \           /   b   \           /       \                        
+     '    /r       r\r       b/b       r\         /         \                       
+     '   /           \___b___/           \___ ___/           \                  
+     '   \           /   b   \           /   y   \           /            
+     '    \y       y/y       r\r       y/y       b\         /               
+     '     \___b___/           \___y___/           \___ ___/                       
+     '             \           /   y   \           /       \                
+     '              \y       r/r       g\g       g/         \           
+     '               \___b___/           \___b___/           \      
+     '                       \           /   b   \           /      
+     '                        \y       r/r       r\         /       
+     '                         \___g___/           \___ ___/    
+     '                                 \           /       \    
+     '                                  \g       g/         \  
+     '                                   \___b___/           \  
+     '                                           \           /  
+     '                                            \         /  
+     '                                             \___ ___/    
+     '  
+We finde the solution!
+Local current time : Sat Oct 01 13:55:36 2016
  
      '                                              _______      
      '                                             /       \     
@@ -326,7 +401,7 @@ Local current time : Sat Oct 01 13:20:06 2016
      '                                             \___ ___/    
      '  
 We finde the solution!
-Local current time : Sat Oct 01 13:20:06 2016
+Local current time : Sat Oct 01 13:55:36 2016
  
      '                                              _______      
      '                                             /       \     
@@ -361,7 +436,7 @@ Local current time : Sat Oct 01 13:20:06 2016
      '                                             \___ ___/    
      '  
 We finde the solution!
-Local current time : Sat Oct 01 13:20:06 2016
+Local current time : Sat Oct 01 13:55:36 2016
  
      '                                              _______      
      '                                             /       \     
@@ -396,7 +471,7 @@ Local current time : Sat Oct 01 13:20:06 2016
      '                                             \___ ___/    
      '  
 We finde the solution!
-Local current time : Sat Oct 01 13:21:12 2016
+Local current time : Sat Oct 01 13:56:44 2016
  
      '                                              _______      
      '                                             /       \     
@@ -431,6 +506,7 @@ Local current time : Sat Oct 01 13:21:12 2016
      '                                             \___ ___/    
      '  
 algorithm                   Tantrix pyramid 15      
+astar_search                <29201/29203/30354/(('y>
 breadth_first_tree_search   <29201/29202/30354/(('b>
 depth_first_tree_search     < 107/ 108/ 174/(('r>   
 depth_first_graph_search    < 107/ 108/ 174/(('r>   
