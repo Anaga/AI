@@ -19,7 +19,7 @@ import search
    In the instantiation of the Problem class we create all rotations. (15*6=90)
 """
 
-realTiles15 = [
+realTilesSet = [
     ('r','y','g','r','g','y'),
     
     ('y','r','b','r','y','b'),
@@ -38,9 +38,16 @@ realTiles15 = [
     ('b','r','b','y','r','y'),
     ('g','y','y','g','r','r'),
     ('y','y','g','g','b','b'),
-    ('y','r','b','r','b','y')
-    ] 
-    
+    ('y','r','b','r','b','y') ] 
+
+def N_Tailes(N):
+    print "Now we try to solve %d tailes"%N
+    tryTails = []
+    for i in range(N):
+        tryTails.append(realTilesSet[i])
+    return tryTails
+
+realTiles15 = N_Tailes(6)
 """    
     ('r','y','g','r','g','y'),
     
@@ -64,6 +71,7 @@ realTiles15 = [
     """
     
 initialState15 = [None,None,None,None,None,None,None,None,None,None,None,None,None,None,None]
+
 
 def leftShift(tup, n):  #Taken from http://stackoverflow.com/questions/5299135/how-to-efficiently-left-shift-a-tuple
     if not tup or not n:
@@ -157,8 +165,7 @@ def printField(state):
      '              \Y                              \___5___/     Z
      '      """
      
-    plase_holder = """  
->>>>>>> parent of b377a6b... Last, clear commit
+    plase_holder = """ 
      '                                              _______      
      '                                             /   O2   \     
      '                                            /O1       O3\    
@@ -297,11 +304,13 @@ class TantrixPyramid15(search.Problem):
         number_of_puted_tiles = (15 - i)
         
         if (number_of_puted_tiles != self.number_of_puted_tiles):
+          """
           localtime = time.asctime( time.localtime(time.time()) )
           print "Local current time :", localtime
           printField(self.gameSet )
           print "total gameTiles is %d" %len(self.gameTiles)
           print "plase %d ties"%(number_of_puted_tiles)
+          """
           self.number_of_puted_tiles = number_of_puted_tiles
 
         if (number_of_puted_tiles != len(self.gameTiles)): return False
@@ -311,40 +320,68 @@ class TantrixPyramid15(search.Problem):
         print "Local current time :", localtime
         printField(self.gameSet )
         return True
+        
+    def h(self,state):
+	    return 1
 
     def prin(self):
         print "TantrixPyramid15"
         print "Current State:"
         printField(self.gameSet )
         
-print "Start up"  
-
+print "Start up" 
+time_format = "%c, %H:%M:%S"
 tp15 = TantrixPyramid15(initialState15,realTiles15)
-localtime = time.asctime( time.localtime(time.time()) )
-print "Local current time :", localtime
+localtime = time.strftime(time_format, time.localtime(time.time()) )
+print "Startup time is:", localtime
 tp15.prin()
-"""
+
+print "Ready to start astar_search"  
+start = time.time()
+search.astar_search(tp15)
+end = time.time()
+localtime = time.strftime(time_format, time.localtime(end) )
+print "Now the astar_search complited, current time is:%s,  take %s sec " % (localtime, str(end - start))
+print "\n"
+
+
 print "Ready to start breadth_first_tree_search"  
+start = time.time()
 search.breadth_first_tree_search(tp15)
-"""
-localtime = time.asctime( time.localtime(time.time()) )
+end = time.time()
+localtime = time.strftime(time_format, time.localtime(end) )
+print "Now the breadth_first_tree_search complited,  current time is:%s,  take %s sec " % (localtime, str(end - start))
+print "\n"
+
+
 print "Ready to start depth_first_tree_search"  
-
-print "Local current time :", localtime
+start = time.time()
 search.depth_first_tree_search(tp15)
+end = time.time()
+localtime = time.strftime(time_format, time.localtime(end) )
+print "Now the depth_first_tree_search complited,  current time is:%s,  take %s sec " % (localtime, str(end - start))
+print "\n"
 
-localtime = time.asctime( time.localtime(time.time()) )
+
 print "Ready to start depth_first_graph_search"  
-print "Local current time :", localtime
+start = time.time()
 search.depth_first_graph_search(tp15)
+end = time.time()
+localtime = time.strftime(time_format, time.localtime(end) )
+print "Now the depth_first_graph_search complited,  current time is:%s,  take %s sec " % (localtime, str(end - start))
+print "\n"
 
-localtime = time.asctime( time.localtime(time.time()) )
-"""
+
 print "Ready to start breadth_first_search"
-print "Local current time :", localtime
+start = time.time()
 search.breadth_first_search(tp15)
+end = time.time()
+localtime = time.strftime(time_format, time.localtime(end) )
+print "Now the breadth_first_search complited, current time is:%s,  take %s sec " % (localtime, str(end - start))
+print "\n"
 
 
+"""
    There are tools available to compare
    search algorithms. The stats contain the following data:
    number of successors /
@@ -354,8 +391,11 @@ search.breadth_first_search(tp15)
 """  
 
 search.compare_searchers([tp15],["algorithm","Tantrix pyramid 15"],[
+        search.astar_search,
+        search.breadth_first_tree_search,
         search.depth_first_tree_search,        
-        search.depth_first_graph_search
+        search.depth_first_graph_search,
+        search.breadth_first_search
     ])
 
  
