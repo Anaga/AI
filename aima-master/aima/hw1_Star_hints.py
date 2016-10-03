@@ -148,12 +148,14 @@ class TantrixPyramid6(search.Problem):
 	    return 0
 
 tp6 = TantrixPyramid6(initialState,realTiles)
+search.astar_search(tp6)
+
 
 search.depth_first_graph_search(tp6)
 
 search.breadth_first_search(tp6)
 
-search.astar_search(tp6)
+
 
 """
    There are tools available to compare

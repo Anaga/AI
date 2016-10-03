@@ -322,10 +322,11 @@ class TantrixPyramid15(search.Problem):
         return True
         
     def h(self,state):
-	    return 1
+	    return 0
 
     def prin(self):
         print "TantrixPyramid15"
+        print "finction h ret const 0"
         print "Current State:"
         printField(self.gameSet )
         
@@ -343,7 +344,7 @@ end = time.time()
 localtime = time.strftime(time_format, time.localtime(end) )
 print "Now the astar_search complited, current time is:%s,  take %s sec " % (localtime, str(end - start))
 print "\n"
-
+"""
 
 print "Ready to start breadth_first_tree_search"  
 start = time.time()
@@ -379,7 +380,7 @@ end = time.time()
 localtime = time.strftime(time_format, time.localtime(end) )
 print "Now the breadth_first_search complited, current time is:%s,  take %s sec " % (localtime, str(end - start))
 print "\n"
-
+"""
 
 """
    There are tools available to compare
@@ -390,14 +391,16 @@ print "\n"
    first 4 bytes of the found goal
 """  
 
-search.compare_searchers([tp15],["algorithm","Tantrix pyramid 15"],[
+
+
+search.compare_searchers([tp15],["algorithm","Tantrix pyramid 15"],[search.astar_search ])
+"""
         search.astar_search,
         search.breadth_first_tree_search,
         search.depth_first_tree_search,        
         search.depth_first_graph_search,
         search.breadth_first_search
-    ])
-
- 
-print "End"
+"""
+localtime = time.strftime(time_format, time.localtime(time.time()) )
+print "End time is:", localtime
 
